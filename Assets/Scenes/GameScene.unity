@@ -189,6 +189,7 @@ GameObject:
   - component: {fileID: 1040077497}
   - component: {fileID: 1040077496}
   - component: {fileID: 1040077495}
+  - component: {fileID: 1040077499}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -265,6 +266,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1040077499
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1040077494}
+  m_Material: {fileID: 13400000, guid: 8f3bbce3c6657416d95d973956d25b7d, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 10, y: 2.220446e-16, z: 10}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1467599965
 Prefab:
   m_ObjectHideFlags: 0
@@ -452,6 +465,7 @@ GameObject:
   - component: {fileID: 1811127262}
   - component: {fileID: 1811127261}
   - component: {fileID: 1811127265}
+  - component: {fileID: 1811127266}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -528,7 +542,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1811127260}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 175d5af932d114feabb01e41d8752166, type: 3}
   m_Name: 
@@ -539,5 +553,27 @@ MonoBehaviour:
   ySpeed: 120
   yMinLimit: -20
   yMaxLimit: 80
+  xMinLimit: 15
+  xMaxLimit: 15
   distanceMin: 0.5
   distanceMax: 15
+--- !u!114 &1811127266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1811127260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16596a4daa7234a0b832347bdc0808a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1474173398}
+  distance: 5
+  xSpeed: 120
+  ySpeed: 120
+  yMinLimit: 15
+  yMaxLimit: 30
+  distanceMin: 0.5
+  distanceMax: 15
+  smoothTime: 2

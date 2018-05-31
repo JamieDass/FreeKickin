@@ -10,8 +10,11 @@ public class MouseOrbitImproved : MonoBehaviour
     public float xSpeed = 120.0f;
     public float ySpeed = 120.0f;
 
-    public float yMinLimit = 3f;
-    public float yMaxLimit = 3f;
+    public float yMinLimit = 3.0f;
+    public float yMaxLimit = 3.0f;
+
+    public float xMinLimit = 15f;
+    public float xMaxLimit = 15f;
 
     public float distanceMin = .5f;
     public float distanceMax = 15f;
@@ -36,40 +39,47 @@ public class MouseOrbitImproved : MonoBehaviour
         {
             rigidbody.freezeRotation = true;
         }
+
+        if (target) {
+          positionCamera();
+        }
     }
 
     void LateUpdate()
     {
         if (target && Input.GetMouseButton(0))
         {
-            Debug.Log("x: " + x);
-            x += Input.GetAxis("Mouse X") * xSpeed * distance * 0.02f;
-
-            y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
-            Debug.Log("x 2a : " + x);
-            y = ClampAngle(y, yMinLimit, yMaxLimit);
-            //Debug.Log("y clamped : " + y);
-            Quaternion rotation = Quaternion.Euler(y, x, 0);
-
-            //distance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel") * 5, distanceMin, distanceMax);
-            distance = Mathf.Clamp(distance, distanceMin, distanceMax);
-
-            RaycastHit hit;
-            if (Physics.Linecast(target.position, transform.position, out hit))
-            {
-                distance -= hit.distance;
-            }
-            print("distance: " + distance);
-            print("rotation: " + rotation);
-            Vector3 negDistance = new Vector3(0.0f, 0.0f, -distance);
-            print("camera position 1: " + transform.position);
-            Vector3 position = rotation * negDistance + target.position;
-
-            print("camera position 2: " + position);
-            print("target position 2: " + target.position);
-            transform.rotation = rotation;
-            transform.position = position;
+          positionCamera();
         }
+    }
+
+    void positionCamera(){
+      x += Input.GetAxis("Mouse X") * xSpeed * distance * 0.02f;
+//            x = ClampAngle(x, xMinLimit, xMaxLimit);
+      y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
+      y = ClampAngle(y, yMinLimit, yMaxLimit);
+      Quaternion rotation = Quaternion.Euler(y, x, 0);
+
+      //distance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel") * 5, distanceMin, distanceMax);
+      distance = Mathf.Clamp(distance, distanceMin, distanceMax);
+      //distance = 0.0f;
+
+      RaycastHit hit;
+      if (Physics.Linecast(target.position, transform.position, out hit))
+      {
+          distance -= hit.distance;
+      }
+      print("distance: " + distance);
+      print("rotation: " + rotation);
+      float targetY = target.position.y;
+      Vector3 negDistance = new Vector3(0.0f, 0.0f, -distance);
+      print("camera position 1: " + transform.position);
+      Vector3 position = rotation * negDistance + target.position;
+
+      print("camera position 2: " + position);
+      print("target position 2: " + target.position);
+      transform.rotation = rotation;
+      transform.position = position;
     }
 
     public static float ClampAngle(float angle, float min, float max)
