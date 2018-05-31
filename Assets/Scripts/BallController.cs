@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BallController : MonoBehaviour {
-    
+
     public float speed;
     Vector3 distance;
     private Vector3 lastMousePosition;
@@ -30,6 +30,11 @@ public class BallController : MonoBehaviour {
 
 	void FixedUpdate()
     {
+      if (rb.position.y < 0.11f) {
+        Vector3 newPosition = gameObject.transform.position;
+        newPosition.y = 0.11f;
+        transform.position = newPosition;
+      }
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
