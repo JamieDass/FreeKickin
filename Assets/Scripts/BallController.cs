@@ -20,6 +20,7 @@ public class BallController : MonoBehaviour {
 
 	private void Awake()
 	{
+        Application.targetFrameRate = 60;
         rb = gameObject.GetComponent<Rigidbody>();
 	}
 

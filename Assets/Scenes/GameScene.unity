@@ -551,8 +551,8 @@ MonoBehaviour:
   distance: 5
   xSpeed: 120
   ySpeed: 120
-  yMinLimit: -20
-  yMaxLimit: 80
+  yMinLimit: 10
+  yMaxLimit: 30
   xMinLimit: 15
   xMaxLimit: 15
   distanceMin: 0.5
@@ -570,8 +570,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1474173398}
   distance: 5
-  xSpeed: 120
-  ySpeed: 120
+  xSpeed: 60
+  ySpeed: 60
   yMinLimit: 15
   yMaxLimit: 30
   distanceMin: 0.5

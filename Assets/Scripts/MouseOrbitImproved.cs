@@ -54,9 +54,16 @@ public class MouseOrbitImproved : MonoBehaviour
     }
 
     void positionCamera(){
-      x += Input.GetAxis("Mouse X") * xSpeed * distance * 0.02f;
-//            x = ClampAngle(x, xMinLimit, xMaxLimit);
-      y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
+      float pointer_x = Input.GetAxis("Mouse X");
+      float pointer_y = Input.GetAxis("Mouse Y");
+      if (Input.touchCount > 0)
+      {
+          pointer_x = Input.touches[0].deltaPosition.x * 0.02f;
+          pointer_y = Input.touches[0].deltaPosition.y * 0.02f;
+      }
+      x += pointer_x * xSpeed * distance * 0.02f;
+      y -= pointer_y * ySpeed * 0.02f;
+
       y = ClampAngle(y, yMinLimit, yMaxLimit);
       Quaternion rotation = Quaternion.Euler(y, x, 0);
 

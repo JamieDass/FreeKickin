@@ -46,8 +46,16 @@ public class DragMouseOrbit : MonoBehaviour
 						{
 								checkMouseDown();
 								if(!touchedBall){
-								velocityX += xSpeed * Input.GetAxis("Mouse X") * distance * 0.02f;
-								velocityY += ySpeed * Input.GetAxis("Mouse Y") * 0.02f;
+									float pointer_x = Input.GetAxis("Mouse X");
+									float pointer_y = Input.GetAxis("Mouse Y");
+									if (Input.touchCount > 0)
+									{
+											pointer_x = Input.touches[0].deltaPosition.x * 0.02f;
+											pointer_y = Input.touches[0].deltaPosition.y * 0.02f;
+									}
+									//print(Input.GetAxis("Mouse X")+","+Input.GetAxis("Mouse Y"));
+								velocityX += xSpeed * pointer_x * distance * 0.02f;
+								velocityY += ySpeed * pointer_y * 0.02f;
 								}
 						}
 
@@ -59,7 +67,7 @@ public class DragMouseOrbit : MonoBehaviour
 						Quaternion toRotation = Quaternion.Euler(rotationXAxis, rotationYAxis, 0);
 						Quaternion rotation = toRotation;
 
-						distance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel") * 5, distanceMin, distanceMax);
+						//distance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel") * 5, distanceMin, distanceMax);
 
 						RaycastHit hit;
 						if (Physics.Linecast(target.position, transform.position, out hit))
@@ -71,8 +79,8 @@ public class DragMouseOrbit : MonoBehaviour
 
 						transform.rotation = rotation;
 						transform.position = position;
-						velocityX = Mathf.Lerp(velocityX, 0, smoothTime);
-						velocityY = Mathf.Lerp(velocityY, 0, smoothTime);
+						velocityX = Mathf.Lerp(velocityX, 0, Time.deltaTime * smoothTime);
+						velocityY = Mathf.Lerp(velocityY, 0, Time.deltaTime * smoothTime);
 
 				}
 		}
